@@ -1,16 +1,11 @@
-//
-// Created by Serafym on 03.09.2024.
-//
+#pragma once
+#include <iostream>
+#include <map>
 
-#ifndef JSONPARSER_H
-#define JSONPARSER_H
+using namespace std;
 
-
-
-class JsonParser {
-
+union JsonValue {
+    int i;
+    double d;
+    map<string, JsonValue>* json;  
 };
-
-
-
-#endif //JSONPARSER_H
