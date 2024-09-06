@@ -1,14 +1,16 @@
 #pragma once
 #include <iostream>
-#include <map>
+#include <fstream>
+#include <vector>
 
 using namespace std;
 
 class FileProcessor {
 public:
-    FileProcessor() = default;
+    explicit FileProcessor(string file_name);
+
+    vector<string> readFile() const;
 
 private:
     const string file_name_;
-    map<string, string> request_result_;
 };
