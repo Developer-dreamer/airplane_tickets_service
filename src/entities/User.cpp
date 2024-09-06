@@ -15,7 +15,7 @@ User::User(string full_name, const int& age, const float& balance)
       ticket_()
 {}
 
-void User::addTicket(Ticket ticket)
+void User::addTicket(const Ticket& ticket)
 {
     ticket_ = ticket;
 }

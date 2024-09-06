@@ -1,6 +1,10 @@
 #include "../include/PurchaseProcessor.h"
 
-PurchaseProcessor::PurchaseProcessor(User& user, Seat& seat)
+PurchaseProcessor::PurchaseProcessor(const User& user, string seat)
     : user_(user),
-        seat_(seat)
+        seat_id_(move(seat))
 {};
+
+Ticket PurchaseProcessor::purchase() {
+    
+}

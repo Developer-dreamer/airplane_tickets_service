@@ -1,30 +1,32 @@
 cmake_minimum_required(VERSION 3.29)
 project(airplane_tickets_service CXX)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_BUILD_TYPE Release)
+
+set(CMAKE_CXX_STANDARD 14)
 
 include_directories(.)
-include_directories("src/instances")
+include_directories("src/entities")
 include_directories("include")
 
 add_executable(airplane_tickets_service
-        src/instances/User.cpp
-        src/instances/Student.cpp
+        src/entities/User.cpp
         src/main.cpp
-        include/Student.h
         include/User.h
         include/Ticket.h
-        src/instances/Ticket.cpp
-        include/Flight.h
-        src/instances/Flight.cpp
-        src/instances/Seat.cpp
-        include/Seat.h
+        src/entities/Ticket.cpp
         src/processors/PurchaseProcessor.cpp
         include/PurchaseProcessor.h
         include/FileProcessor.h
         src/processors/FileProcessor.cpp
-        FileProcessorHelper/JsonParser.h
-        FileProcessorHelper/JsonParser.cpp
         include/ConsoleProcessor.h
         src/processors/ConsoleProcessor.cpp
+        include/ICommand.h
+        include/BookingContext.h
+        src/Commands/RequestFlightInfo.h
+        src/Commands/RequestFlightInfo.cpp
+        src/Commands/BookTicket.h
+        src/Commands/BookTicket.cpp
+        src/processors/BookingContext.cpp
+        src/Commands/MakePurchase.cpp
 )

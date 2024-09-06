@@ -13,5 +13,5 @@ public:
 private:
     const BookingContext& receiver_;
     User buyer_;
-    Seat seat_;
+    string seat_id_;
 };
