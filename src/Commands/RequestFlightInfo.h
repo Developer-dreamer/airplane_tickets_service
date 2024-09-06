@@ -7,13 +7,12 @@
 using namespace std;
 class RequestFlightInfo final : public ICommand {
 public:
-    RequestFlightInfo(FileProcessor  receiver, string  file_name);
+    explicit RequestFlightInfo(FileProcessor  receiver);
 
     void execute() override;
 
     map<string, string> getResult() const;
 private:
     FileProcessor receiver_;
-    const string file_name_;
     map<string, string> request_result_;
 };

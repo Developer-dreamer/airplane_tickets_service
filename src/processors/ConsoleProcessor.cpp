@@ -3,63 +3,33 @@
 #include <complex>
 #include "FileProcessor.h"
 #include "BookingContext.h"
+#include "src/Commands/BookTicket.h"
 #include "src/Commands/RequestFlightInfo.h"
 #include "src/Commands/MakePurchase.h"
 
 unique_ptr<ICommand> ConsoleProcessor::parseParameters(const BookingContext& bookTicket)
 {
-    const string options = "1. Show flights: all"
-            "2. Show flight: f <flight_id>"
-            "3. Show seat: s <flight_id> <seat_id>"
-            "4. Buy ticket: b"
-            "5 Show ticket: t";
+    const string options =
+            "1. Show flight: f <flight_id>"
+            "2. Buy ticket: b";
     
     cout << "Please enter what action you want to perform: ";
-    vector<string> args;
+    string option;
+    getline(cin, option);
 
-    const auto input = new char[20];
-    cin.getline(input, 100);
-
-    string temp;
-    for (int i = 0; i < 20; i++)
-    {
-        if (input[i] == ' ')
-        {
-            args.push_back(temp);
-            temp = "";
-        }
-        else if (input[i] == '\0')
-        {
-            args.push_back(temp);
-            break;
-        }
-        else
-        {
-            temp += input[i];
-        }
-    }
-
-    const string option =  args[0];
-    const string file_name = args[1];
-    delete [] input;
     try
     {
-        const FileProcessor file_processor;
-        if (option == "all") {
-            cout << "All flights" << endl;
-            return make_unique<RequestFlightInfo>(file_processor, file_name);
-        } if (option == "f") {
+        if (option == "f") {
+            const FileProcessor file_processor;
             cout << "Flight info" << endl;
-            return make_unique<RequestFlightInfo>(file_processor, file_name);
-        } if (option == "s") {
-            cout << "Seat info" << endl;
-            return make_unique<RequestFlightInfo>(file_processor, file_name);
+            return make_unique<RequestFlightInfo>(file_processor);
         } if (option == "b") {
             cout << "Buy ticket" << endl;
             return make_unique<MakePurchase>(bookTicket);
-        } if (option == "t") {
-            cout << "Ticket info" << endl;
-            return make_unique<RequestFlightInfo>(file_processor, file_name);
+        } if (option == "h")
+        {
+            cout << options << endl;
+            parseParameters(bookTicket);
         }
         cout << "Invalid option" << endl;
         return nullptr;
@@ -71,5 +41,21 @@ unique_ptr<ICommand> ConsoleProcessor::parseParameters(const BookingContext& boo
     }
     
     
+}
+
+map<string, string> ConsoleProcessor::authenticateUser()
+{
+    map <string, string> user;
+
+    cout << "Please enter your username: ";
+    getline(cin, user["name"]);
+
+    cout << "Please enter your age: ";
+    getline(cin, user["age"]);
+
+    cout << "Please enter your balance (in dollars): ";
+    getline(cin, user["balance"]);
+
+    return user;
 }
 

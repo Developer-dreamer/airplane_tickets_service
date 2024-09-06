@@ -4,8 +4,8 @@
 
 
 
-RequestFlightInfo::RequestFlightInfo(FileProcessor  receiver, string file_name)
-    : receiver_(move(receiver)), file_name_(move(file_name))
+RequestFlightInfo::RequestFlightInfo(FileProcessor  receiver)
+    : receiver_(move(receiver))
 {};
 
 map<string, string> RequestFlightInfo::getResult() const
