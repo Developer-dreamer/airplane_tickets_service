@@ -1,5 +1,7 @@
 #pragma once
 #include <iostream>
+#include <map>
+
 #include "User.h"
 #include "Ticket.h"
 
@@ -7,7 +9,7 @@ using namespace std;
 class User {
 public:
     User();
-    User(string  full_name, const int& age, const float& balance);
+    explicit User(map<string, string> user_info);
     
     void addTicket(const Ticket& ticket);
     float getBalance() const;

@@ -12,6 +12,11 @@ void BookingContext::create_purchase() {
     // write ticket to file
 }
 
+void BookingContext::setUser(const User& user)
+{
+    user_ = user;
+}
+
 User BookingContext::getUser() const
 {
     return user_;

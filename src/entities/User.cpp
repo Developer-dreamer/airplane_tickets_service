@@ -8,12 +8,12 @@ User::User()
 {
 }
 
-User::User(string full_name, const int& age, const float& balance)
-    : full_name_(std::move(full_name)),
-      age_(age),
-      balance_(balance),
-      ticket_()
-{}
+User::User(map<string, string> user_info)
+{
+    full_name_ = user_info["full_name"];
+    age_ = stoi(user_info["age"]);
+    balance_ = stof(user_info["balance"]);
+}
 
 void User::addTicket(const Ticket& ticket)
 {

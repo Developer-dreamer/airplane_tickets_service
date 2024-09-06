@@ -7,7 +7,7 @@
 using namespace std;
 class RequestFlightInfo final : public ICommand {
 public:
-    explicit RequestFlightInfo(FileProcessor  receiver);
+    explicit RequestFlightInfo(FileProcessor receiver);
 
     void execute() override;
 

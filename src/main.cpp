@@ -11,11 +11,15 @@ using namespace std;
 int main() {
     // initializing Main Processors:
     BookingContext book_ticket;
+    
+    const User user(ConsoleProcessor::authenticateUser());
+    book_ticket.setUser(user);
 
     unique_ptr<ICommand> command = ConsoleProcessor::parseParameters(book_ticket);
-    //
-    // command->execute();
-    //
+
+    if (command == nullptr) {
+        ;
+    }
     // if (dynamic_cast<RequestFlightInfo*>(command))
     // {
     //     

@@ -4,7 +4,7 @@
 
 
 
-RequestFlightInfo::RequestFlightInfo(FileProcessor  receiver)
+RequestFlightInfo::RequestFlightInfo(FileProcessor receiver)
     : receiver_(move(receiver))
 {};
 

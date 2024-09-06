@@ -26,12 +26,14 @@ unique_ptr<ICommand> ConsoleProcessor::parseParameters(const BookingContext& boo
         } if (option == "b") {
             cout << "Buy ticket" << endl;
             return make_unique<MakePurchase>(bookTicket);
-        } if (option == "h")
-        {
+        } if (option == "h") {
             cout << options << endl;
             parseParameters(bookTicket);
+        } if (option != "q") {
+            cout << "Invalid option" << endl;
+            parseParameters(bookTicket);
         }
-        cout << "Invalid option" << endl;
+        cout << "Exiting" << endl;
         return nullptr;
     }
     catch (const exception& e)

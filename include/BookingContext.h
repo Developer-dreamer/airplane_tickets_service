@@ -10,6 +10,7 @@ public:
     void book();
     void change_seat();
 
+    void setUser(const User& user);
     User getUser() const;
     string getSeat() const;
     
