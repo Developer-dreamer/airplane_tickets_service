@@ -1,12 +1,13 @@
 #pragma once
 #include <iostream>
 #include <utility>
-#include "Flight.h"
+#include "src/entities/Flight.cpp"
 #include "Seat.h"
 
 using namespace std;
 class Ticket {
 public:
+    Ticket() = default;
     Ticket(const Flight& flight, const Seat& seat);
 
     void add_food();
@@ -22,5 +23,5 @@ public:
 private:
     Flight flight_;
     Seat seat_;
-    float price_;
+    float price_{};
 };
