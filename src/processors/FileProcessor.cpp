@@ -10,8 +10,13 @@ vector<map<string, string>> FileProcessor::readFile() const
 {
     vector<map<string, string>> file_text;
     string line;
-    
+
     ifstream file(file_name_);
+    
+    if (!file.is_open()) {
+        throw runtime_error("File not found");
+    }
+    
     
     while (getline(file, line))
     {
@@ -30,6 +35,7 @@ map<string, string> FileProcessor::splitData(const string& line) const
     string word;
     
     int word_id  = 0;
+    string seat_temp;
     
     const vector<string> keys = {"date", "flight_id", "seats_per_row"};
 
@@ -38,9 +44,11 @@ map<string, string> FileProcessor::splitData(const string& line) const
             data[keys[word_id]] = word;
         } else {
             if (word_id % 2 == 1) {
-                data["seats_numbers"] += " " + word;
-            } else {
-                data["seats_prices"] += " " + word;
+                seat_temp = word;
+            } else
+            {
+                data[seat_temp] = word;
+                seat_temp.clear();
             }
         }
         word_id++;
