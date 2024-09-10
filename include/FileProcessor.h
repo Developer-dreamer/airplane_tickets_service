@@ -3,16 +3,15 @@
 #include <sstream>
 #include <string>
 #include <map>
-#include <vector>
 using namespace std;
 
 class FileProcessor {
 public:
-    explicit FileProcessor(string file_name);
+    explicit FileProcessor(const string& file_name);
 
-    vector<map<string, string>> readFile() const;
-
+    map<string, string> searchFlight(const string& date_to_search, const string& flight_to_search);
+    ~FileProcessor();
 private:
-    const string file_name_;
-    map<string, string> splitData(const string& line) const;
+    ifstream file_stream_;
+    map<string, string> splitData(const string& line, const string& date_to_search, const string& flight_to_search) const;
 };

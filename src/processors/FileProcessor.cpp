@@ -1,33 +1,38 @@
 #include "../include/FileProcessor.h"
 
-
-
-FileProcessor::FileProcessor(string file_name)
-    : file_name_(move(file_name))
-{}
-
-vector<map<string, string>> FileProcessor::readFile() const
+FileProcessor::FileProcessor(const string& file_name)
+    : file_stream_(file_name)
 {
-    vector<map<string, string>> file_text;
-    string line;
-
-    ifstream file(file_name_);
-    
-    if (!file.is_open()) {
+    if (!file_stream_.is_open()) {
         throw runtime_error("File not found");
     }
+}
+
+FileProcessor::~FileProcessor()
+{
+    file_stream_.close();
+}
+
+map<string, string> FileProcessor::searchFlight(const string& date_to_search, const string& flight_to_search)
+{
+    map<string, string> file_text;
+    string line;
     
-    
-    while (getline(file, line))
+    while (getline(file_stream_, line))
     {
-        map<string, string> data = splitData(line);
-        file_text.push_back(data);
+        map<string, string> data = splitData(line, date_to_search, flight_to_search);
+        if (data["date"] != date_to_search || data["flight_id"] != flight_to_search)
+        {
+            data.clear();
+            continue;
+        }
+        file_text = data;
     }
 
     return file_text;
 }
 
-map<string, string> FileProcessor::splitData(const string& line) const
+map<string, string> FileProcessor::splitData(const string& line, const string& date_to_search, const string& flight_to_search) const 
 {
     map<string, string> data;
 
