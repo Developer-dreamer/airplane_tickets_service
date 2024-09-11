@@ -32,7 +32,8 @@ int main() {
         if(const auto fileProcessCommand = dynamic_cast<RequestFlightInfo*>(command.get()))
         {
             const map<string, string> result = fileProcessCommand->getResult();
-            ConsoleProcessor::printFileInfo(result);
+            Airplane airplane(result);
+            // ConsoleProcessor::printFileInfo(result);
         }
     }
 
