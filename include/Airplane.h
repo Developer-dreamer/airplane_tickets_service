@@ -18,9 +18,9 @@ struct Airplane {
 private:
   string date_;
   string flight_num_;
-  int seats_per_row_;
+  int seats_per_row_{};
   vector<string> reserved_seats_;
   map<string, float> price_;
 
-  vector<int> getSeatNumbers(const string& seat) const;
+  static vector<int> getSeatNumbers(const string& seat) ;
 };

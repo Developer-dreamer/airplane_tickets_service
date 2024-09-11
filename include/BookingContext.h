@@ -9,15 +9,12 @@ class BookingContext {
 public:
     BookingContext() = default;
     
-    void create_purchase();
-    
-    void book();
     void change_seat();
 
     void setUser(const User& user);
     
     shared_ptr<User> getUser() const;
-    shared_ptr<Airplane> getFlight(const string& date, const string& flight_d);
+    shared_ptr<Airplane> getFlight(const string& date, const string& flight_d) const;
   
     
     ~BookingContext() = default;

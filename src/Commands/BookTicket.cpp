@@ -11,7 +11,7 @@ BookTicket::BookTicket(shared_ptr<BookingContext> receiver, string date, string 
 
 void BookTicket::execute() {
     // obtain user from BookingContext
-    shared_ptr<User> buyer = receiver_->getUser();
+    const shared_ptr<User> buyer = receiver_->getUser();
     shared_ptr<Airplane> flight;
     
     try
@@ -28,7 +28,7 @@ void BookTicket::execute() {
     // Start purchase
         // ask for specific features
         // increment or decrement price
-    Ticket ticket = purchase_processor.purchase();
+    const Ticket ticket = purchase_processor.purchase();
 
     // update user instance
     buyer->addTicket(ticket);

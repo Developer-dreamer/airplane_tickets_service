@@ -1,16 +1,5 @@
 #include "BookingContext.h"
 
-void BookingContext::create_purchase() {
-    // create PurchaseProcessor
-    // execute purchase
-    // write ticket to file
-}
-
-void BookingContext::book()
-{
-    
-}
-
 void BookingContext::setUser(const User& user)
 {
     user_ = user;
@@ -21,7 +10,7 @@ shared_ptr<User> BookingContext::getUser() const
     return make_shared<User>(user_);
 }
 
-shared_ptr<Airplane> BookingContext::getFlight(const string& date, const string& flight_d)
+shared_ptr<Airplane> BookingContext::getFlight(const string& date, const string& flight_d) const
 {
     for (const auto& airplane : viewed_airplanes_)
     {
@@ -32,4 +21,5 @@ shared_ptr<Airplane> BookingContext::getFlight(const string& date, const string&
         }
         throw runtime_error("Flight not found");
     }
+    return make_shared<Airplane>();
 }

@@ -46,9 +46,10 @@ map<string, string> Airplane::getFlightInfo() const
     map<string, string> info;
     info["date"] = date_;
     info["flight_id"] = flight_num_;
+    return info;
 }
 
-vector<int> Airplane::getSeatNumbers(const string& seat) const
+vector<int> Airplane::getSeatNumbers(const string& seat) 
 {
     vector<int> seat_numbers;
     stringstream ss(seat);
