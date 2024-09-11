@@ -11,7 +11,7 @@ struct Airplane {
   Airplane() = default;
   explicit Airplane(const map<string, string>& flight_info);
 
-  void ReserveSeat(const string& seat, const float& price);
+  float ReserveSeat(const string& seat, const float& price);
 
   map<string, string> getFlightInfo() const;
   

@@ -27,19 +27,18 @@ Airplane::Airplane(const map<string, string>& flight_info)
     }
 }
 
-void Airplane::ReserveSeat(const string& seat, const float& price)
+float Airplane::ReserveSeat(const string& seat, const float& budget)
 {
     if (find(reserved_seats_.begin(), reserved_seats_.end(), seat) != reserved_seats_.end())
     {
-        cout << "Seat is already taken" << endl;
-        return;
+        throw runtime_error("Seat already reserved");
     }
-    if (price_[seat] > price)
+    if (price_[seat] > budget)
     {
-        cout << "Not enough money" << endl;
-        return;
+        throw runtime_error("Not enough money");
     }
     reserved_seats_.push_back(seat);
+    return price_[seat];
 }
 
 map<string, string> Airplane::getFlightInfo() const

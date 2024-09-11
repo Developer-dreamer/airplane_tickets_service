@@ -17,10 +17,20 @@ User::User(map<string, string> user_info)
 
 void User::addTicket(const Ticket& ticket)
 {
-    ticket_ = ticket;
+    reserved_tickets_.push_back(ticket);
 }
 
 float User::getBalance() const
 {
     return balance_;
+}
+
+int User::getAge() const
+{
+    return age_;
+}
+
+void User::writeOffFunds(float amount)
+{
+    balance_ -= amount;
 };

@@ -1,5 +1,5 @@
 #pragma once
-#include <iostream>
+
 #include <map>
 
 #include "User.h"
@@ -12,11 +12,15 @@ public:
     explicit User(map<string, string> user_info);
     
     void addTicket(const Ticket& ticket);
+    
     float getBalance() const;
+    int getAge() const;
+    
+    void writeOffFunds(float amount);
     ~User() = default;
 protected:
     string full_name_;
     int age_;
     float balance_;
-    Ticket ticket_;
+    vector<Ticket> reserved_tickets_;
 };

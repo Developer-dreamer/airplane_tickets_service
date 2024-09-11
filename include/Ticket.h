@@ -6,19 +6,13 @@ using namespace std;
 class Ticket {
 public:
     Ticket() = default;
-    Ticket(string flight, string seat, float price);
-
-    void add_food();
-    void add_drink();
-    void add_extra_baggage();
-    void add_priority_boarding();
-    void add_insurance();
-    void add_pets_transportation();
+    Ticket(string date, string flight, string seat, float price);
 
     void change_price();
 
     ~Ticket() = default;
 private:
+    string date_;
     string flight_number_;
     string seat_id_;
     float price_{};
