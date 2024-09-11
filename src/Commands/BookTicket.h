@@ -4,8 +4,12 @@
 
 class BookTicket final : public ICommand {
 public:
-    explicit BookTicket(BookingContext& receiver);
+    BookTicket(const BookingContext& receiver,string date, string flight_num, string place, string user_name);
     void execute() override;
 private:
-    BookingContext& receiver_;
+    const BookingContext& receiver_;
+    string user_name;
+    string date;
+    string flight_num;
+    string place;
 };

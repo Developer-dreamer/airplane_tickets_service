@@ -28,5 +28,5 @@ add_executable(airplane_tickets_service
         src/Commands/BookTicket.h
         src/Commands/BookTicket.cpp
         src/processors/BookingContext.cpp
-        src/Commands/MakePurchase.cpp
+        src/entities/Airplane.cpp
 )

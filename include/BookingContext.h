@@ -1,5 +1,6 @@
 #pragma once
 #include "User.h"
+#include "Airplane.cpp"
 
 class BookingContext {
 public:
@@ -16,6 +17,7 @@ public:
     
     ~BookingContext() = default;
 private:
+    Airplane airplane_;
     User user_;
     string seat_id_;
     bool is_booked_;
