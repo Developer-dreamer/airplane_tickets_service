@@ -1,10 +1,10 @@
 #pragma once
 #include "User.h"
-#include "Airplane.cpp"
+#include "Airplane.h"
 
 class BookingContext {
 public:
-    BookingContext();
+    BookingContext() = default;
     
     void create_purchase();
     
@@ -12,13 +12,13 @@ public:
     void change_seat();
 
     void setUser(const User& user);
-    User getUser() const;
-    string getSeat() const;
+    
+    shared_ptr<User> getUser() const;
+    shared_ptr<Airplane> getFlight(const string& date, const string& flight_d);
+  
     
     ~BookingContext() = default;
 private:
-    Airplane airplane_;
+    vector<Airplane> viewed_airplanes_;
     User user_;
-    string seat_id_;
-    bool is_booked_;
 };

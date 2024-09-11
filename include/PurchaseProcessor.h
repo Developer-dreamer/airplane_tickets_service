@@ -1,14 +1,16 @@
 #pragma once
 #include "User.h"
+#include "Airplane.h"
 
 class PurchaseProcessor {
 public:
-    PurchaseProcessor(const User& user, string seat);
+    PurchaseProcessor(shared_ptr<User> user, shared_ptr<Airplane> airplane, string seat);
 
     Ticket purchase();
 
     ~PurchaseProcessor() = default;
 private:
-    User user_;
+    shared_ptr<User> user_;
+    shared_ptr<Airplane> airplane_;
     string seat_id_;
 };

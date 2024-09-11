@@ -42,7 +42,7 @@ unique_ptr<ICommand> ConsoleProcessor::parseParameters(const BookingContext& boo
             {
                 cout << "Not enough arguments" << endl;
             }
-            return make_unique<BookTicket>(bookTicket, args[1], args[2], args[3], args[4]);
+            return make_unique<BookTicket>(make_shared<BookingContext>(bookTicket), args[1], args[2], args[3], args[4]);
         } if (args.front() == "view" || args.front() == "return")
         {
             if (args.size() != 2)

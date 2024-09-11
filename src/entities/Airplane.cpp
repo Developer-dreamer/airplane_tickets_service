@@ -42,6 +42,13 @@ void Airplane::ReserveSeat(const string& seat, const float& price)
     reserved_seats_.push_back(seat);
 }
 
+map<string, string> Airplane::getFlightInfo() const
+{
+    map<string, string> info;
+    info["date"] = date_;
+    info["flight_id"] = flight_num_;
+}
+
 vector<int> Airplane::getSeatNumbers(const string& seat) const
 {
     vector<int> seat_numbers;
