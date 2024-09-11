@@ -6,7 +6,8 @@ PurchaseProcessor::PurchaseProcessor(shared_ptr<User> user, shared_ptr<Airplane>
         seat_id_(move(seat))
 {};
 
-Ticket PurchaseProcessor::purchase() {
+Ticket PurchaseProcessor::purchase() const
+{
     float reservedPrice;
     try
     {

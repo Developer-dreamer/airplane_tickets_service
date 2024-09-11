@@ -1,13 +1,12 @@
 #include "BookTicket.h"
-
 #include "PurchaseProcessor.h"
 
 BookTicket::BookTicket(shared_ptr<BookingContext> receiver, string date, string flight_num, string place, string user_name)
-    : receiver_(move(receiver)),
-        user_name(move(user_name)),
-        date(move(date)),
-        flight_num(move(flight_num)),
-        place(move(place))
+    : receiver_(std::move(receiver)),
+        user_name(std::move(user_name)),
+        date(std::move(date)),
+        flight_num(std::move(flight_num)),
+        place(std::move(place))
 {}
 
 void BookTicket::execute() {
@@ -24,7 +23,7 @@ void BookTicket::execute() {
     }
     
     // create PurchaseProcessor
-    PurchaseProcessor purchase_processor(buyer, flight, place);
+    const PurchaseProcessor purchase_processor(buyer, flight, place);
     
     // Start purchase
         // ask for specific features

@@ -1,6 +1,9 @@
 #pragma once
+#include <iostream>
 #include "User.h"
 #include "Airplane.h"
+
+using namespace std;
 
 class BookingContext {
 public:
