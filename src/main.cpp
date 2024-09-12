@@ -21,7 +21,8 @@ int main() {
     book_ticket.setUser(user);
 
     
-    while (true) {
+    while (true)
+    {
         unique_ptr<ICommand> command = ConsoleProcessor::parseParameters(book_ticket, file_path);
         if (command == nullptr) {
             throw invalid_argument("Invalid command");
@@ -33,7 +34,8 @@ int main() {
         {
             const map<string, string> result = fileProcessCommand->getResult();
             Airplane airplane(result);
-            // ConsoleProcessor::printFileInfo(result);
+            book_ticket.addViewedAirplane(airplane);
+            ConsoleProcessor::printFileInfo(result);
         }
     }
 

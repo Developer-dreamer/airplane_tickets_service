@@ -10,7 +10,7 @@ User::User()
 
 User::User(map<string, string> user_info)
 {
-    full_name_ = user_info["full_name"];
+    full_name_ = user_info["name"];
     age_ = stoi(user_info["age"]);
     balance_ = stof(user_info["balance"]);
 }
@@ -28,6 +28,18 @@ float User::getBalance() const
 int User::getAge() const
 {
     return age_;
+}
+
+map<string, string> User::getTicket(int index) const
+{
+    for (const auto& ticket : reserved_tickets_)
+    {
+        if (ticket.getId() == index)
+        {
+            return ticket.obtainTicketInfo();
+        }
+    }
+    return {};
 }
 
 void User::writeOffFunds(float amount)

@@ -9,7 +9,7 @@ class PurchaseProcessor {
 public:
     PurchaseProcessor(shared_ptr<User> user, shared_ptr<Airplane> airplane, string seat);
 
-    Ticket purchase() const;
+    Ticket purchase(const int& purchase_id) const;
 
     ~PurchaseProcessor() = default;
 private:

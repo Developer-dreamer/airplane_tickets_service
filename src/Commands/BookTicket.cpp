@@ -26,9 +26,13 @@ void BookTicket::execute() {
     const PurchaseProcessor purchase_processor(buyer, flight, place);
     
     // Start purchase
-        // ask for specific features
-        // increment or decrement price
-    const Ticket ticket = purchase_processor.purchase();
+    
+    const Ticket ticket = purchase_processor.purchase(receiver_->updatePurchaseId());
+    if (ticket.getId() == -1)
+    {
+        cout << "Purchase failed" << endl;
+        return;
+    }
 
     // update user instance
     buyer->addTicket(ticket);

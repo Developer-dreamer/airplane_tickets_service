@@ -15,10 +15,12 @@ public:
     
     float getBalance() const;
     int getAge() const;
+    map<string, string> getTicket(int index) const;
     
     void writeOffFunds(float amount);
+    
     ~User() = default;
-protected:
+private:
     string full_name_;
     int age_;
     float balance_;

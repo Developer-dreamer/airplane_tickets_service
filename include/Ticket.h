@@ -1,17 +1,20 @@
 #pragma once
 #include <iostream>
-#include <utility>
+#include <map>
 
 using namespace std;
 class Ticket {
 public:
     Ticket() = default;
-    Ticket(string date, string flight, string seat, float price);
+    Ticket(int id, string date, string flight, string seat, float price);
 
-    void change_price();
+    int getId() const;
+
+    map<string, string> obtainTicketInfo() const;
 
     ~Ticket() = default;
 private:
+    int id_;
     string date_;
     string flight_number_;
     string seat_id_;

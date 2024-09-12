@@ -23,3 +23,20 @@ shared_ptr<Airplane> BookingContext::getFlight(const string& date, const string&
     }
     return make_shared<Airplane>();
 }
+
+int BookingContext::updatePurchaseId()
+{
+    return ++purchase_counter_;
+}
+
+void BookingContext::addViewedAirplane(const Airplane& airplane)
+{
+    viewed_airplanes_.push_back(airplane);
+}
+
+map<string, string> BookingContext::viewTicket(const int& id) const
+{
+    const map<string, string> ticket = user_.getTicket(id);
+    return ticket;
+}
+

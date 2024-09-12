@@ -1,12 +1,12 @@
 #include "../include/PurchaseProcessor.h"
 
 PurchaseProcessor::PurchaseProcessor(shared_ptr<User> user, shared_ptr<Airplane> airplane, string seat)
-    : user_(move(user)),
-        airplane_(move(airplane)),
-        seat_id_(move(seat))
+    : user_(std::move(user)),
+        airplane_(std::move(airplane)),
+        seat_id_(std::move(seat))
 {};
 
-Ticket PurchaseProcessor::purchase() const
+Ticket PurchaseProcessor::purchase(const int& purchase_id) const
 {
     float reservedPrice;
     try
@@ -14,7 +14,7 @@ Ticket PurchaseProcessor::purchase() const
         reservedPrice = airplane_->ReserveSeat(seat_id_, user_->getBalance());
     } catch(runtime_error& e) {
         cout << e.what() << endl;
-        return {"", "", "", 0};
+        return {-1, "", "", "", 0};
     }
 
     map<string, string> flight_info = airplane_->getFlightInfo();
@@ -26,7 +26,7 @@ Ticket PurchaseProcessor::purchase() const
 
     user_->writeOffFunds(reservedPrice);
 
-    Ticket ticket(flight_info["flight_id"], flight_info["date"], seat_id_, reservedPrice);
+    Ticket ticket(purchase_id, flight_info["flight_id"], flight_info["date"], seat_id_, reservedPrice);
 
     return ticket;
 }
