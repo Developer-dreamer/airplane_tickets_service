@@ -40,6 +40,15 @@ int main() {
         } if (const auto requestTicketInfoCommand = dynamic_cast<RequestTicketInfo*>(command.get()))
         {
             const auto result = requestTicketInfoCommand->obtainResults();
+            if (requestTicketInfoCommand->view_type == 0)
+            {
+                ConsoleProcessor::printFileInfo(result[0]);
+            }
+            for (const auto& map : result)
+            {
+                ConsoleProcessor::printFileInfo(map);
+            }
+            
         }
     }
 

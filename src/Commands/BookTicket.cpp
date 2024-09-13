@@ -39,8 +39,4 @@ void BookTicket::execute() {
     // update user instance
     // at this stage code goes wrong and user here is being modified, but BookingContext.user_() outside is still unmodified
     buyer->addTicket(ticket);
-
-    buyer->test=3;
-    
-    //return;
 }

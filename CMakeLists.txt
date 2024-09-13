@@ -3,7 +3,7 @@ project(airplane_tickets_service CXX)
 
 set(CMAKE_BUILD_TYPE Debug)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 
 include_directories(.)
 include_directories("src/entities")
@@ -30,4 +30,6 @@ add_executable(airplane_tickets_service
         src/processors/BookingContext.cpp
         src/entities/Airplane.cpp
         include/Airplane.h
+        src/Commands/RequestTicketInfo.h
+        src/Commands/RequestTicketInfo.cpp
 )

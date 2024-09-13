@@ -21,8 +21,7 @@ public:
     [[nodiscard]] vector<map<string, string>> getTicketsByFlight(const string& flight_id) const;
     
     void writeOffFunds(float amount);
-
-    int test;
+    
     ~User() = default;
 private:
     string full_name_;
