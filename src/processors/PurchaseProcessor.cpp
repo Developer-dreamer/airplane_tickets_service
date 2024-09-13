@@ -3,7 +3,7 @@
 PurchaseProcessor::PurchaseProcessor(shared_ptr<User> user, string passenger, shared_ptr<Airplane> airplane, string seat)
     : user_(std::move(user)),
         passenger_(std::move(passenger)),
-        airplane_(std::move(airplane)),
+        airplane_(airplane),
         seat_id_(std::move(seat))
 {};
 

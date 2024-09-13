@@ -14,12 +14,11 @@ public:
     void addTicket(const Ticket& ticket);
     void removeTicket(const int& ticket_id);
     
-    [[nodiscard]] float getBalance() const;
-    [[nodiscard]] int getAge() const;
-    [[nodiscard]] map<string, string> getTicket(int index) const;
-    [[nodiscard]] vector<map<string, string>> getTickets() const;
-    [[nodiscard]] vector<map<string, string>> getTickets(const string& flight_id) const;
-    [[nodiscard]] vector<map<string, string>> getTicketsByFlight(const string& flight_id) const;
+    float getBalance() const;
+    int getAge() const;
+    map<string, string> getTicket(int index) const;
+    vector<map<string, string>> getTickets(const string& flight_id) const;
+    vector<map<string, string>> getTicketsByFlight(const string& flight_id) const;
     
     void writeOffFunds(float amount);
     void refund(const float& amount);

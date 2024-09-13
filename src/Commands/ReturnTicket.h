@@ -4,9 +4,9 @@
 
 class ReturnTicket final : public ICommand {
 public:
-    explicit ReturnTicket(const shared_ptr<BookingContext>& receiver, const string& ticket_id);
+    explicit ReturnTicket(shared_ptr<BookingContext> receiver, const string& ticket_id);
     void execute() override;
 private:
-    const shared_ptr<BookingContext>& receiver_;
+    shared_ptr<BookingContext> receiver_;
     int ticket_id_;
 };

@@ -1,12 +1,12 @@
 #include "BookTicket.h"
 #include "PurchaseProcessor.h"
 
-BookTicket::BookTicket(const shared_ptr<BookingContext>& receiver, string date, string flight_num, string place, string passenger)
-    : receiver_(std::move(receiver)),
-        passenger_(std::move(passenger)),
-        date(std::move(date)),
-        flight_num(std::move(flight_num)),
-        place(std::move(place))
+BookTicket::BookTicket(shared_ptr<BookingContext> receiver, string date, string flight_num, string place, string passenger)
+    : receiver_(receiver),
+        passenger_(move(passenger)),
+        date(move(date)),
+        flight_num(move(flight_num)),
+        place(move(place))
 {}
 
 void BookTicket::execute() {

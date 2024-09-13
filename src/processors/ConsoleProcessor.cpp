@@ -57,7 +57,7 @@ unique_ptr<ICommand> ConsoleProcessor::parseParameters(const shared_ptr<BookingC
                     return make_unique<RequestTicketInfo>(bookTicket, 1, args[2]);
                 } if (args[1] == "flight")
                 {
-                    return make_unique<RequestTicketInfo>(bookTicket, 2, args[2]);
+                    return make_unique<RequestTicketInfo>(bookTicket, 1, args[2]);
                 }
                 cout << "Not enough arguments" << endl;
                 return nullptr;

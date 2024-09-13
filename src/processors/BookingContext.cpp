@@ -5,7 +5,7 @@ void BookingContext::setUser(const User& user)
     user_ = make_shared<User>(user);
 }
 
-const shared_ptr<User>& BookingContext::getUser() const
+shared_ptr<User> BookingContext::getUser() const
 {
     return user_;
 }
@@ -14,10 +14,10 @@ shared_ptr<Airplane> BookingContext::getFlight(const string& date, const string&
 {
     for (const auto& airplane : viewed_airplanes_)
     {
-        auto flight_info = airplane.getFlightInfo();
+        auto flight_info = airplane->getFlightInfo();
         if (flight_info["date"] == date && flight_info["flight_id"] == flight_d)
         {
-            return make_shared<Airplane>(airplane);
+            return airplane;
         }
         throw runtime_error("Flight not found");
     }
@@ -31,7 +31,7 @@ int BookingContext::updatePurchaseId()
 
 void BookingContext::addViewedAirplane(const Airplane& airplane)
 {
-    viewed_airplanes_.push_back(airplane);
+    viewed_airplanes_.push_back(make_shared<Airplane>(airplane));
 }
 
 void BookingContext::returnTicket(const int& id)
@@ -41,9 +41,9 @@ void BookingContext::returnTicket(const int& id)
     {
         for (auto& airplane : viewed_airplanes_)
         {
-            if (airplane.getFlightInfo()["flight_id"] == ticket["flight_id"])
+            if (airplane->getFlightInfo()["flight_id"] == ticket["flight_id"])
             {
-                airplane.CancelSeat(ticket["seat_id"]);
+                airplane->CancelSeat(ticket["seat_id"]);
             }
         }
     } catch (exception& e) {
