@@ -5,8 +5,8 @@
 #include "FileProcessor.h"
 #include "ICommand.h"
 #include "PurchaseProcessor.h"
-#include "Commands/BookTicket.h"
 #include "Commands/RequestFlightInfo.h"
+#include "Commands/RequestTicketInfo.h"
 using namespace std;
 
 int main() {
@@ -14,11 +14,12 @@ int main() {
     const string file_path = "../src/data_files/flights.txt";
     
     // initializing Main Processors:
-    BookingContext book_ticket;
+    auto book_ticket = make_shared<BookingContext>();
 
-    // //initialize user session
+    // initialize User session
+    
     const User user(ConsoleProcessor::authenticateUser());
-    book_ticket.setUser(user);
+    book_ticket->setUser(user);
 
     
     while (true)
@@ -32,10 +33,13 @@ int main() {
         
         if(const auto fileProcessCommand = dynamic_cast<RequestFlightInfo*>(command.get()))
         {
-            const map<string, string> result = fileProcessCommand->getResult();
+            const map<string, string> result = fileProcessCommand->obtainResults();
             Airplane airplane(result);
-            book_ticket.addViewedAirplane(airplane);
+            book_ticket->addViewedAirplane(airplane);
             ConsoleProcessor::printFileInfo(result);
+        } if (const auto requestTicketInfoCommand = dynamic_cast<RequestTicketInfo*>(command.get()))
+        {
+            const auto result = requestTicketInfoCommand->obtainResults();
         }
     }
 

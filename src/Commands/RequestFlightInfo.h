@@ -5,16 +5,16 @@
 #include <map>
 
 using namespace std;
-class RequestFlightInfo final : public ICommand {
+class RequestFlightInfo final : public ICommand{
 public:
     explicit RequestFlightInfo(string date, string flight, string file_to_search);
 
     void execute() override;
 
-    map<string, string> getResult() const;
+    map<string, string> obtainResults() const;
 private:
     FileProcessor receiver_;
     string date_to_search_;
     string flight_to_search_;
-    map<string, string> request_result_;
+    map<string, string> result_;
 };

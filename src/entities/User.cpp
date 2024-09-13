@@ -42,6 +42,49 @@ map<string, string> User::getTicket(int index) const
     return {};
 }
 
+vector<map<string, string>> User::getTickets() const
+{
+    vector<map<string, string>> tickets;
+
+    tickets.reserve(reserved_tickets_.size());
+    for (const auto& ticket : reserved_tickets_)
+    {
+        tickets.push_back(ticket.obtainTicketInfo());
+    }
+
+    return tickets;
+}
+
+vector<map<string, string>> User::getTickets(const string& flight_id) const
+{
+    vector<map<string, string>> tickets;
+
+    tickets.reserve(reserved_tickets_.size());
+    for (const auto& ticket : reserved_tickets_)
+    {
+        map<string, string> is_right_ticket =  ticket.obtainTicketInfo();
+        if (is_right_ticket["flight_number"] == flight_id)
+        {
+            tickets.push_back(ticket.obtainTicketInfo());
+        }
+    }
+
+    return tickets;
+}
+
+vector<map<string, string>> User::getTicketsByFlight(const string& flight_id) const
+{
+    vector<map<string, string>> tickets;
+    for (const auto& ticket : reserved_tickets_)
+    {
+        if (ticket.obtainTicketInfo()["flight_number"] == flight_id)
+        {
+            tickets.push_back(ticket.obtainTicketInfo());
+        }
+    }
+    return tickets;
+}
+
 void User::writeOffFunds(float amount)
 {
     balance_ -= amount;

@@ -13,12 +13,16 @@ public:
     
     void addTicket(const Ticket& ticket);
     
-    float getBalance() const;
-    int getAge() const;
-    map<string, string> getTicket(int index) const;
+    [[nodiscard]] float getBalance() const;
+    [[nodiscard]] int getAge() const;
+    [[nodiscard]] map<string, string> getTicket(int index) const;
+    [[nodiscard]] vector<map<string, string>> getTickets() const;
+    [[nodiscard]] vector<map<string, string>> getTickets(const string& flight_id) const;
+    [[nodiscard]] vector<map<string, string>> getTicketsByFlight(const string& flight_id) const;
     
     void writeOffFunds(float amount);
-    
+
+    int test;
     ~User() = default;
 private:
     string full_name_;

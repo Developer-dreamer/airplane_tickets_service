@@ -5,8 +5,9 @@
 #include "BookingContext.h"
 #include "src/Commands/BookTicket.h"
 #include "src/Commands/RequestFlightInfo.h"
+#include "src/Commands/RequestTicketInfo.h"
 
-unique_ptr<ICommand> ConsoleProcessor::parseParameters(const BookingContext& bookTicket, const string& file_name)
+unique_ptr<ICommand> ConsoleProcessor::parseParameters(const shared_ptr<BookingContext>& bookTicket, const string& file_name)
 {
     const string options =
             "check <date> <flightNum>"
@@ -42,15 +43,27 @@ unique_ptr<ICommand> ConsoleProcessor::parseParameters(const BookingContext& boo
             {
                 cout << "Not enough arguments" << endl;
             }
-            return make_unique<BookTicket>(make_shared<BookingContext>(bookTicket), args[1], args[2], args[3], args[4]);
-        } if (args.front() == "view" || args.front() == "return")
+            return make_unique<BookTicket>(bookTicket, args[1], args[2], args[3], args[4]);
+        } if (args.front() == "view")
         {
-            if (args.size() != 2)
+            if (args.size() == 2)
             {
+                return make_unique<RequestTicketInfo>(bookTicket, 0, args[1]);
+            } if (args.size() == 3)
+            {
+                if (args[1] == "username")
+                {
+                    return make_unique<RequestTicketInfo>(bookTicket, 1, args[2]);
+                } if (args[1] == "flight")
+                {
+                    return make_unique<RequestTicketInfo>(bookTicket, 2, args[2]);
+                }
                 cout << "Not enough arguments" << endl;
+                return nullptr;
             }
-            // Booking context getUser().getTickets
-        } 
+        }
+        cout << "Invalid command" << endl;
+        return nullptr;
     }
     catch (const exception& e)
     {

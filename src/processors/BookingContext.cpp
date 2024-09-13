@@ -2,12 +2,12 @@
 
 void BookingContext::setUser(const User& user)
 {
-    user_ = user;
+    user_ = make_shared<User>(user);
 }
 
-shared_ptr<User> BookingContext::getUser() const
+const shared_ptr<User>& BookingContext::getUser() const
 {
-    return make_shared<User>(user_);
+    return user_;
 }
 
 shared_ptr<Airplane> BookingContext::getFlight(const string& date, const string& flight_d) const
@@ -36,7 +36,7 @@ void BookingContext::addViewedAirplane(const Airplane& airplane)
 
 map<string, string> BookingContext::viewTicket(const int& id) const
 {
-    const map<string, string> ticket = user_.getTicket(id);
+    const map<string, string> ticket = user_->getTicket(id);
     return ticket;
 }
 

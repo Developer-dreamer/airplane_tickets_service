@@ -10,14 +10,14 @@ public:
     BookingContext() = default;
     
     void returnTicket() const;
-    map<string, string> viewTicket(const int& id) const;
-    map<string, string> viewByAirplane(const string& flight_id) const;
-    map<string,string> viewByUser(const string& user_name) const;
+    [[nodiscard]] map<string, string> viewTicket(const int& id) const;
+    [[nodiscard]] map<string, string> viewByAirplane(const string& flight_id) const;
+    [[nodiscard]] map<string,string> viewByUser(const string& user_name) const;
 
     void setUser(const User& user);
     
-    shared_ptr<User> getUser() const;
-    shared_ptr<Airplane> getFlight(const string& date, const string& flight_d) const;
+    [[nodiscard]] const shared_ptr<User>& getUser() const;
+    [[nodiscard]] shared_ptr<Airplane> getFlight(const string& date, const string& flight_d) const;
     int updatePurchaseId();
     void addViewedAirplane(const Airplane& airplane);
     
@@ -25,5 +25,5 @@ public:
 private:
     int purchase_counter_ = 0;
     vector<Airplane> viewed_airplanes_;
-    User user_;
+    shared_ptr<User> user_;
 };
