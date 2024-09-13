@@ -8,11 +8,11 @@
 #include "src/Commands/RequestTicketInfo.h"
 #include "src/Commands/ReturnTicket.h"
 
+int ConsoleProcessor::recursive_counter_ = 0;
+
 unique_ptr<ICommand> ConsoleProcessor::parseParameters(const shared_ptr<BookingContext>& bookTicket, const string& file_name)
 {
-    resursive_counter_++;
-    
-    if (resursive_counter_ > 3) {
+    if (recursive_counter_ > 3) {
         cout << "Too many attempts" << endl;
         return nullptr;
     }
@@ -36,6 +36,7 @@ unique_ptr<ICommand> ConsoleProcessor::parseParameters(const shared_ptr<BookingC
         return nullptr;
     } if(args.empty())
     {
+        recursive_counter_++;
         parseParameters(bookTicket, file_name);
     }
 
@@ -44,16 +45,20 @@ unique_ptr<ICommand> ConsoleProcessor::parseParameters(const shared_ptr<BookingC
         if(args.size() != 3)
         {
             cout << "Wrong number of arguments" << endl;
+            recursive_counter_++;
             parseParameters(bookTicket, file_name);
         }
+        recursive_counter_ = 0;
         return make_unique<RequestFlightInfo>(args[1], args[2], file_name);
     } if (args.front() == "book")
     {
         if(args.size() != 5)
         {
             cout << "Wrong number of arguments" << endl;
+            recursive_counter_++;
             parseParameters(bookTicket, file_name);
         }
+        recursive_counter_ = 0;
         return make_unique<BookTicket>(bookTicket, args[1], args[2], args[3], args[4]);
     } if (args.front() == "view")
     {
@@ -71,20 +76,24 @@ unique_ptr<ICommand> ConsoleProcessor::parseParameters(const shared_ptr<BookingC
                     getline(cin, id);
                 }
             }
+            recursive_counter_ = 0;
             return make_unique<RequestTicketInfo>(bookTicket, 0, args[1]);
         } if (args.size() == 3)
         {
             if (args[1] == "username")
             {
+                recursive_counter_ = 0;
                 return make_unique<RequestTicketInfo>(bookTicket, 1, args[2]);
             } if (args[1] == "flight")
             {
+                recursive_counter_ = 0;
                 return make_unique<RequestTicketInfo>(bookTicket, 1, args[2]);
             }
             cout << "Invalid command" << endl;
         } else
         {
             cout << "Wrong number of arguments" << endl;
+            recursive_counter_++;
             parseParameters(bookTicket, file_name);
         }
     } if (args.front() == "return")
@@ -92,8 +101,10 @@ unique_ptr<ICommand> ConsoleProcessor::parseParameters(const shared_ptr<BookingC
         if(args.size() != 2)
         {
             cout << "Wrong number of arguments" << endl;
+            recursive_counter_++;
             parseParameters(bookTicket, file_name);
         }
+        recursive_counter_ = 0;
         return make_unique<ReturnTicket>(bookTicket, args[1]);
     }
     return nullptr;
@@ -108,14 +119,31 @@ map<string, string> ConsoleProcessor::authenticateUser()
 
     cout << "Please enter your age: ";
     getline(cin, user["age"]);
-
+    user["age"] = validate_int(user["age"]);
+    
     cout << "Please enter your balance (in dollars): ";
     getline(cin, user["balance"]);
-
+    user["balance"] = validate_int(user["balance"]);
+    
     return user;
 }
 
-void ConsoleProcessor::printFileInfo(map<string,string> file_info)
+string ConsoleProcessor::validate_int(string& param)
+{
+    while (true)
+    {
+        try
+        {
+            stoi(param);
+            return param;
+        } catch (invalid_argument& e) {
+            cout << "Enter an integer parameter" << endl;
+            getline(cin, param);
+        }
+    }
+}
+
+void ConsoleProcessor::printInfo(const map<string,string>& file_info)
 {
     if(file_info.empty())
     {
@@ -126,6 +154,20 @@ void ConsoleProcessor::printFileInfo(map<string,string> file_info)
     for (const auto& [key, value] : file_info)
     {
         cout << key << ": " << value << endl;
+    }
+}
+
+void ConsoleProcessor::printInfo(const map<string,float>& file_info)
+{
+    if(file_info.empty())
+    {
+        cout << "No info found" << endl;
+        return;
+    }
+    
+    for (const auto& [key, value] : file_info)
+    {
+        cout << key << ": " << value << "$" << endl;
     }
 }
 

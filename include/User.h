@@ -16,7 +16,7 @@ public:
     
     float getBalance() const;
     int getAge() const;
-    map<string, string> getTicket(int index) const;
+    map<string, string> getTicket(const int& id) const;
     vector<map<string, string>> getTickets(const string& flight_id) const;
     vector<map<string, string>> getTicketsByFlight(const string& flight_id) const;
     

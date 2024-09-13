@@ -6,7 +6,7 @@ using namespace std;
 class Ticket {
 public:
     Ticket() = default;
-    Ticket(int id, string date, string flight, string seat, string passenger, float price);
+    Ticket(const int& id, string date, string flight, string seat, string passenger, float price);
 
     [[nodiscard]] int getId() const;
 

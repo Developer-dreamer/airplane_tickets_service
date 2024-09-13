@@ -34,12 +34,12 @@ void BookingContext::addViewedAirplane(const Airplane& airplane)
     viewed_airplanes_.push_back(make_shared<Airplane>(airplane));
 }
 
-void BookingContext::returnTicket(const int& id)
+void BookingContext::returnTicket(const int& id) const
 {
     auto ticket = user_->getTicket(id);
     try
     {
-        for (auto& airplane : viewed_airplanes_)
+        for (auto airplane : viewed_airplanes_)
         {
             if (airplane->getFlightInfo()["flight_id"] == ticket["flight_id"])
             {

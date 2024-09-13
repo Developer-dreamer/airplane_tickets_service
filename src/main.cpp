@@ -35,18 +35,18 @@ int main() {
             const map<string, string> result = fileProcessCommand->obtainResults();
             Airplane airplane(result);
             book_ticket->addViewedAirplane(airplane);
-            ConsoleProcessor::printFileInfo(result);
+            ConsoleProcessor::printInfo(airplane.getAllAvailableSeats());
         } if (const auto requestTicketInfoCommand = dynamic_cast<RequestTicketInfo*>(command.get()))
         {
             const auto result = requestTicketInfoCommand->obtainResults();
             if (requestTicketInfoCommand->view_type == 0)
             {
-                ConsoleProcessor::printFileInfo(result[0]);
+                ConsoleProcessor::printInfo(result[0]);
             } else
             {
                 for (const auto& map : result)
                 {
-                    ConsoleProcessor::printFileInfo(map);
+                    ConsoleProcessor::printInfo(map);
                 }
             }
         }

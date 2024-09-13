@@ -45,11 +45,11 @@ int User::getAge() const
     return age_;
 }
 
-map<string, string> User::getTicket(int index) const
+map<string, string> User::getTicket(const int& id) const
 {
     for (const auto& ticket : reserved_tickets_)
     {
-        if (ticket.getId() == index)
+        if (ticket.getId() == id)
         {
             return ticket.obtainTicketInfo();
         }

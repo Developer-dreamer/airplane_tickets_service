@@ -12,10 +12,12 @@ class ConsoleProcessor {
 public:
     static unique_ptr<ICommand> parseParameters(const shared_ptr<BookingContext>& bookTicket, const string& file_name);
     static map<string,string> authenticateUser();
-    static void printFileInfo(map<string, string> file_info);
+    static void printInfo(const map<string, string>& file_info);
+    static void printInfo(const map<string, float>& file_info);
     
     ~ConsoleProcessor() = default;
 private:
-    static int resursive_counter_;
+    static int recursive_counter_;
     static vector<string> validate_command(const string& command);
+    static string validate_int(string& param);
 };
