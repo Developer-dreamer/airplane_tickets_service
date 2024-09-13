@@ -9,7 +9,7 @@ public:
   RequestTicketInfo(shared_ptr<BookingContext> receiver, int view_type, string parameter);
   void execute() override;
 
-  int view_type;
+  bool view_type;
   
   [[nodiscard]] vector<map<string, string>> obtainResults() const;
 private:
