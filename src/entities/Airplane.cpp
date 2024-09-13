@@ -29,26 +29,37 @@ Airplane::Airplane(const map<string, string>& flight_info)
 
 float Airplane::ReserveSeat(const string& seat, const float& budget)
 {
-    if (find(reserved_seats_.begin(), reserved_seats_.end(), seat) != reserved_seats_.end())
+    if (reserved_seats_.find(seat) != reserved_seats_.end())
     {
         throw runtime_error("Seat already reserved");
+    } if (price_.find(seat) == price_.end())
+    {
+        throw runtime_error("Seat does not exist");
     }
     if (price_[seat] > budget)
     {
         throw runtime_error("Not enough money");
     }
-    reserved_seats_.push_back(seat);
-    return price_[seat];
+    reserved_seats_[seat] = price_[seat];
+    float price = price_[seat];
+    price_.erase(seat);
+    return price;
 }
 
 void Airplane::CancelSeat(const string& seat_id)
 {
-    auto it = find(reserved_seats_.begin(), reserved_seats_.end(), seat_id);
+    auto it = reserved_seats_.find(seat_id);
     if (it == reserved_seats_.end())
     {
         throw runtime_error("Seat was not reserved");
     }
+    price_[seat_id] = reserved_seats_[seat_id];
     reserved_seats_.erase(it);
+}
+
+map<string, float> Airplane::getAllAvailableSeats() const
+{
+    return price_;
 }
 
 map<string, string> Airplane::getFlightInfo() const

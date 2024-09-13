@@ -14,8 +14,19 @@ int main() {
     // define files directory storage:
     const string file_path = "../src/data_files/flights.txt";
     
-    // initializing Main Processors:
     auto book_ticket = make_shared<BookingContext>();
+    
+    FileProcessor file_processor(file_path);
+    auto config_data = file_processor.readFile();
+
+    for(const auto& flight_info : config_data)
+    {
+        Airplane airplane(flight_info);
+        book_ticket->addViewedAirplane(airplane);
+    }
+    
+    // initializing Main Processors:
+    
 
     // initialize User session
     const User user(ConsoleProcessor::authenticateUser());
@@ -23,19 +34,16 @@ int main() {
     
     while (true)
     {
-        unique_ptr<ICommand> command = ConsoleProcessor::parseParameters(book_ticket, file_path);
+        unique_ptr<ICommand> command = ConsoleProcessor::parseParameters(book_ticket);
         if (command == nullptr) {
             break;
         }
         
         command->execute();
         
-        if(const auto fileProcessCommand = dynamic_cast<RequestFlightInfo*>(command.get()))
+        if(const auto getAvailableSeats = dynamic_cast<RequestFlightInfo*>(command.get()))
         {
-            const map<string, string> result = fileProcessCommand->obtainResults();
-            Airplane airplane(result);
-            book_ticket->addViewedAirplane(airplane);
-            ConsoleProcessor::printInfo(airplane.getAllAvailableSeats());
+            ConsoleProcessor::printInfo(getAvailableSeats->obtainResults());
         } if (const auto requestTicketInfoCommand = dynamic_cast<RequestTicketInfo*>(command.get()))
         {
             const auto result = requestTicketInfoCommand->obtainResults();

@@ -10,7 +10,7 @@
 
 int ConsoleProcessor::recursive_counter_ = 0;
 
-unique_ptr<ICommand> ConsoleProcessor::parseParameters(const shared_ptr<BookingContext>& bookTicket, const string& file_name)
+unique_ptr<ICommand> ConsoleProcessor::parseParameters(const shared_ptr<BookingContext>& bookTicket)
 {
     if (recursive_counter_ > 3) {
         cout << "Too many attempts" << endl;
@@ -37,7 +37,7 @@ unique_ptr<ICommand> ConsoleProcessor::parseParameters(const shared_ptr<BookingC
     } if(args.empty())
     {
         recursive_counter_++;
-        parseParameters(bookTicket, file_name);
+        parseParameters(bookTicket);
     }
 
     if(args.front() == "check")
@@ -46,17 +46,17 @@ unique_ptr<ICommand> ConsoleProcessor::parseParameters(const shared_ptr<BookingC
         {
             cout << "Wrong number of arguments" << endl;
             recursive_counter_++;
-            parseParameters(bookTicket, file_name);
+            parseParameters(bookTicket);
         }
         recursive_counter_ = 0;
-        return make_unique<RequestFlightInfo>(args[1], args[2], file_name);
+        return make_unique<RequestFlightInfo>(bookTicket, args[1], args[2]);
     } if (args.front() == "book")
     {
         if(args.size() != 5)
         {
             cout << "Wrong number of arguments" << endl;
             recursive_counter_++;
-            parseParameters(bookTicket, file_name);
+            parseParameters(bookTicket);
         }
         recursive_counter_ = 0;
         return make_unique<BookTicket>(bookTicket, args[1], args[2], args[3], args[4]);
@@ -94,7 +94,7 @@ unique_ptr<ICommand> ConsoleProcessor::parseParameters(const shared_ptr<BookingC
         {
             cout << "Wrong number of arguments" << endl;
             recursive_counter_++;
-            parseParameters(bookTicket, file_name);
+            parseParameters(bookTicket);
         }
     } if (args.front() == "return")
     {
@@ -102,7 +102,7 @@ unique_ptr<ICommand> ConsoleProcessor::parseParameters(const shared_ptr<BookingC
         {
             cout << "Wrong number of arguments" << endl;
             recursive_counter_++;
-            parseParameters(bookTicket, file_name);
+            parseParameters(bookTicket);
         }
         recursive_counter_ = 0;
         return make_unique<ReturnTicket>(bookTicket, args[1]);

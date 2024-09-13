@@ -1,20 +1,21 @@
 #pragma once
 #include <iostream>
 #include "ICommand.h"
-#include "FileProcessor.h"
 #include <map>
+
+#include "BookingContext.h"
 
 using namespace std;
 class RequestFlightInfo final : public ICommand{
 public:
-    explicit RequestFlightInfo(string date, string flight, string file_to_search);
+    RequestFlightInfo(shared_ptr<BookingContext> booking, string date_to_search, string flight_to_search);
 
     void execute() override;
 
-    map<string, string> obtainResults() const;
+    map<string, float> obtainResults() const;
 private:
-    FileProcessor receiver_;
+    shared_ptr<BookingContext> receiver_;
     string date_to_search_;
     string flight_to_search_;
-    map<string, string> result_;
+    map<string, float> result_;
 };

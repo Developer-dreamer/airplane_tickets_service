@@ -5,21 +5,32 @@ void BookingContext::setUser(const User& user)
     user_ = make_shared<User>(user);
 }
 
+// map<string, float> BookingContext::searchFlight(const string& date, const string& flight_id) const
+// {
+//     for (const auto& airplane : viewed_airplanes_)
+//     {
+//         auto flight_info = airplane->getFlightInfo();
+//         if (flight_info["date"] == date && flight_info["flight_id"] == flight_id)
+//         {
+//             return airplane->getAllAvailableSeats();
+//         }
+//     }
+// }
+
 shared_ptr<User> BookingContext::getUser() const
 {
     return user_;
 }
 
-shared_ptr<Airplane> BookingContext::getFlight(const string& date, const string& flight_d) const
+shared_ptr<Airplane> BookingContext::getFlight(const string& date, const string& flight_id) const
 {
     for (const auto& airplane : viewed_airplanes_)
     {
         auto flight_info = airplane->getFlightInfo();
-        if (flight_info["date"] == date && flight_info["flight_id"] == flight_d)
+        if (flight_info["date"] == date && flight_info["flight_id"] == flight_id)
         {
             return airplane;
         }
-        throw runtime_error("Flight not found");
     }
     return make_shared<Airplane>();
 }

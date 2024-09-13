@@ -10,7 +10,7 @@ class ICommand;
 
 class ConsoleProcessor {
 public:
-    static unique_ptr<ICommand> parseParameters(const shared_ptr<BookingContext>& bookTicket, const string& file_name);
+    static unique_ptr<ICommand> parseParameters(const shared_ptr<BookingContext>& bookTicket);
     static map<string,string> authenticateUser();
     static void printInfo(const map<string, string>& file_info);
     static void printInfo(const map<string, float>& file_info);

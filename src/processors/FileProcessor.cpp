@@ -13,26 +13,21 @@ FileProcessor::~FileProcessor()
     file_stream_.close();
 }
 
-map<string, string> FileProcessor::searchFlight(const string& date_to_search, const string& flight_to_search)
+vector<map<string, string>> FileProcessor::readFile()
 {
-    map<string, string> file_text;
+    vector<map<string, string>> file_text;
     string line;
     
     while (getline(file_stream_, line))
     {
-        map<string, string> data = splitData(line, date_to_search, flight_to_search);
-        if (data["date"] != date_to_search || data["flight_id"] != flight_to_search)
-        {
-            data.clear();
-            continue;
-        }
-        file_text = data;
+        map<string, string> data = splitData(line);
+        file_text.push_back(data);
     }
-
+    
     return file_text;
 }
 
-map<string, string> FileProcessor::splitData(const string& line, const string& date_to_search, const string& flight_to_search) const 
+map<string, string> FileProcessor::splitData(const string& line) const 
 {
     map<string, string> data;
 

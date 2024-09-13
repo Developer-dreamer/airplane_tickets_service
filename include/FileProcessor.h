@@ -9,9 +9,10 @@ class FileProcessor {
 public:
     explicit FileProcessor(const string& file_name);
 
-    map<string, string> searchFlight(const string& date_to_search, const string& flight_to_search);
+    vector<map<string, string>> readFile();
+    
     ~FileProcessor();
 private:
     ifstream file_stream_;
-    map<string, string> splitData(const string& line, const string& date_to_search, const string& flight_to_search) const;
+    map<string, string> splitData(const string& line) const;
 };

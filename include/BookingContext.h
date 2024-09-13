@@ -15,7 +15,7 @@ public:
     void setUser(const User& user);
     
     [[nodiscard]] shared_ptr<User> getUser() const;
-    [[nodiscard]] shared_ptr<Airplane> getFlight(const string& date, const string& flight_d) const;
+    [[nodiscard]] shared_ptr<Airplane> getFlight(const string& date, const string& flight_id) const;
     int updatePurchaseId();
     void addViewedAirplane(const Airplane& airplane);
     
