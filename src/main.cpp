@@ -51,8 +51,6 @@ int main() {
                     ConsoleProcessor::printFileInfo(map);
                 }
             }
-            
-            
         }
     }
 

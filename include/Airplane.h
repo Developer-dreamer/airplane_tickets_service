@@ -12,8 +12,9 @@ struct Airplane {
   explicit Airplane(const map<string, string>& flight_info);
 
   float ReserveSeat(const string& seat, const float& price);
-
-  map<string, string> getFlightInfo() const;
+  void CancelSeat(const string& seat_id);
+  
+  [[nodiscard]] map<string, string> getFlightInfo() const;
   
 private:
   string date_;

@@ -12,6 +12,7 @@ public:
     explicit User(map<string, string> user_info);
     
     void addTicket(const Ticket& ticket);
+    void removeTicket(const int& ticket_id);
     
     [[nodiscard]] float getBalance() const;
     [[nodiscard]] int getAge() const;
@@ -21,6 +22,7 @@ public:
     [[nodiscard]] vector<map<string, string>> getTicketsByFlight(const string& flight_id) const;
     
     void writeOffFunds(float amount);
+    void refund(const float& amount);
     
     ~User() = default;
 private:

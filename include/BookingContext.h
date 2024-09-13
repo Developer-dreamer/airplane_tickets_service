@@ -9,7 +9,7 @@ class BookingContext {
 public:
     BookingContext() = default;
     
-    void returnTicket() const;
+    void returnTicket(const int& ticket_id);
     [[nodiscard]] map<string, string> viewTicket(const int& id) const;
     [[nodiscard]] map<string, string> viewByAirplane(const string& flight_id) const;
     [[nodiscard]] map<string,string> viewByUser(const string& user_name) const;

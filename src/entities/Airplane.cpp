@@ -41,6 +41,16 @@ float Airplane::ReserveSeat(const string& seat, const float& budget)
     return price_[seat];
 }
 
+void Airplane::CancelSeat(const string& seat_id)
+{
+    auto it = find(reserved_seats_.begin(), reserved_seats_.end(), seat_id);
+    if (it == reserved_seats_.end())
+    {
+        throw runtime_error("Seat was not reserved");
+    }
+    reserved_seats_.erase(it);
+}
+
 map<string, string> Airplane::getFlightInfo() const
 {
     map<string, string> info;

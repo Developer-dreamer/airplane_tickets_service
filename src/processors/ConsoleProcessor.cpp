@@ -6,6 +6,7 @@
 #include "src/Commands/BookTicket.h"
 #include "src/Commands/RequestFlightInfo.h"
 #include "src/Commands/RequestTicketInfo.h"
+#include "src/Commands/ReturnTicket.h"
 
 unique_ptr<ICommand> ConsoleProcessor::parseParameters(const shared_ptr<BookingContext>& bookTicket, const string& file_name)
 {
@@ -61,6 +62,13 @@ unique_ptr<ICommand> ConsoleProcessor::parseParameters(const shared_ptr<BookingC
                 cout << "Not enough arguments" << endl;
                 return nullptr;
             }
+        } if (args.front() == "return")
+        {
+            if(args.size() != 2)
+            {
+                cout << "Not enough arguments" << endl;
+            }
+            return make_unique<ReturnTicket>(bookTicket, args[1]);
         }
         cout << "Invalid command" << endl;
         return nullptr;

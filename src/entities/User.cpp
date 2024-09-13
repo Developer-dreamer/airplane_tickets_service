@@ -18,6 +18,23 @@ void User::addTicket(const Ticket& ticket)
     reserved_tickets_.push_back(ticket);
 }
 
+void User::removeTicket(const int& ticket_id)
+{
+    for (auto it = reserved_tickets_.begin(); it != reserved_tickets_.end(); ++it)
+    {
+        if (it->getId() == ticket_id)
+        {
+            reserved_tickets_.erase(it);
+            return;
+        }
+    }
+}
+
+void User::refund(const float& amount)
+{
+    balance_ += amount;
+}
+
 float User::getBalance() const
 {
     return balance_;

@@ -32,4 +32,6 @@ add_executable(airplane_tickets_service
         include/Airplane.h
         src/Commands/RequestTicketInfo.h
         src/Commands/RequestTicketInfo.cpp
+        src/Commands/ReturnTicket.h
+        src/Commands/ReturnTicket.cpp
 )
