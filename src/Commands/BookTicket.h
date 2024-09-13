@@ -4,11 +4,11 @@
 
 class BookTicket final : public ICommand {
 public:
-    BookTicket(const shared_ptr<BookingContext>& receiver,string date, string flight_num, string place, string user_name);
+    BookTicket(const shared_ptr<BookingContext>& receiver,string date, string flight_num, string place, string passenger);
     void execute() override;
 private:
     const shared_ptr<BookingContext>& receiver_;
-    string user_name;
+    string passenger_;
     string date;
     string flight_num;
     string place;

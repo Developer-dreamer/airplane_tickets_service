@@ -1,9 +1,9 @@
 #include "BookTicket.h"
 #include "PurchaseProcessor.h"
 
-BookTicket::BookTicket(const shared_ptr<BookingContext>& receiver, string date, string flight_num, string place, string user_name)
+BookTicket::BookTicket(const shared_ptr<BookingContext>& receiver, string date, string flight_num, string place, string passenger)
     : receiver_(std::move(receiver)),
-        user_name(std::move(user_name)),
+        passenger_(std::move(passenger)),
         date(std::move(date)),
         flight_num(std::move(flight_num)),
         place(std::move(place))
@@ -25,7 +25,7 @@ void BookTicket::execute() {
     
     // create PurchaseProcessor
     // it must modify user in order to change balance and obtain private info
-    const PurchaseProcessor purchase_processor(buyer, flight, place);
+    const PurchaseProcessor purchase_processor(buyer, passenger_, flight, place);
     
     // Start purchase
     // creates and instance of Ticket according to user and airplane

@@ -7,6 +7,7 @@
 #include "PurchaseProcessor.h"
 #include "Commands/RequestFlightInfo.h"
 #include "Commands/RequestTicketInfo.h"
+
 using namespace std;
 
 int main() {
@@ -26,7 +27,7 @@ int main() {
     {
         unique_ptr<ICommand> command = ConsoleProcessor::parseParameters(book_ticket, file_path);
         if (command == nullptr) {
-            throw invalid_argument("Invalid command");
+            break;
         }
         
         command->execute();
@@ -43,22 +44,17 @@ int main() {
             if (requestTicketInfoCommand->view_type == 0)
             {
                 ConsoleProcessor::printFileInfo(result[0]);
-            }
-            for (const auto& map : result)
+            } else
             {
-                ConsoleProcessor::printFileInfo(map);
+                for (const auto& map : result)
+                {
+                    ConsoleProcessor::printFileInfo(map);
+                }
             }
+            
             
         }
     }
 
-    // Process request, by defining either user  wants to see timetable or concrete plane or available seats only
-        // print available ticket
-    
-    // If the user wants to  make a purchase, then define the user and the seat, then call the purchase method
-        // here we are checking whether user is student
-    
-    // create a ticket instance, set parameters and assign to the user object
-    
     return 0;
 }

@@ -1,5 +1,3 @@
-#include <utility>
-
 #include "../include/User.h"
 
 User::User()
@@ -42,29 +40,22 @@ map<string, string> User::getTicket(int index) const
     return {};
 }
 
-vector<map<string, string>> User::getTickets() const
-{
+vector<map<string, string>> User::getTickets(const string& parameter) const {
     vector<map<string, string>> tickets;
 
     tickets.reserve(reserved_tickets_.size());
-    for (const auto& ticket : reserved_tickets_)
-    {
-        tickets.push_back(ticket.obtainTicketInfo());
-    }
+    for (const auto& ticket : reserved_tickets_) {
+        map<string, string> is_right_ticket = ticket.obtainTicketInfo();
+        
+        bool shouldProcess = false;
+        for (const auto& kv : is_right_ticket) {
+            if (kv.second == parameter) {
+                shouldProcess = true;
+                break;
+            }
+        }
 
-    return tickets;
-}
-
-vector<map<string, string>> User::getTickets(const string& flight_id) const
-{
-    vector<map<string, string>> tickets;
-
-    tickets.reserve(reserved_tickets_.size());
-    for (const auto& ticket : reserved_tickets_)
-    {
-        map<string, string> is_right_ticket =  ticket.obtainTicketInfo();
-        if (is_right_ticket["flight_number"] == flight_id)
-        {
+        if (shouldProcess) {
             tickets.push_back(ticket.obtainTicketInfo());
         }
     }

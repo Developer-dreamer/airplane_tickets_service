@@ -6,17 +6,18 @@ using namespace std;
 class Ticket {
 public:
     Ticket() = default;
-    Ticket(int id, string date, string flight, string seat, float price);
+    Ticket(int id, string date, string flight, string seat, string passenger, float price);
 
-    int getId() const;
+    [[nodiscard]] int getId() const;
 
-    map<string, string> obtainTicketInfo() const;
+    [[nodiscard]] map<string, string> obtainTicketInfo() const;
 
     ~Ticket() = default;
 private:
-    int id_;
+    int id_{};
     string date_;
     string flight_number_;
     string seat_id_;
+    string passenger_;
     float price_{};
 };

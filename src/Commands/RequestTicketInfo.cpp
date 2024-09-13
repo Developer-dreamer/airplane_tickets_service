@@ -14,15 +14,9 @@ void RequestTicketInfo::execute()
                 result_.push_back(receiver_->viewTicket(stoi(parameter)));
                 break;
             }
-        // stands for user
+        // stands for user or flight
         case 1: {
                 // return type will be vector of tickets
-                result_ = receiver_->getUser()->getTickets();
-                break;
-            }
-        // stands for flight
-        case 2: {
-                // return vector of tickets
                 result_ = receiver_->getUser()->getTickets(parameter);
                 break;
             }
