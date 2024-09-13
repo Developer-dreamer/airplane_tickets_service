@@ -18,10 +18,8 @@ int main() {
     auto book_ticket = make_shared<BookingContext>();
 
     // initialize User session
-    
     const User user(ConsoleProcessor::authenticateUser());
     book_ticket->setUser(user);
-
     
     while (true)
     {

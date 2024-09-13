@@ -10,6 +10,13 @@
 
 unique_ptr<ICommand> ConsoleProcessor::parseParameters(const shared_ptr<BookingContext>& bookTicket, const string& file_name)
 {
+    resursive_counter_++;
+    
+    if (resursive_counter_ > 3) {
+        cout << "Too many attempts" << endl;
+        return nullptr;
+    }
+    
     const string options =
             "check <date> <flightNum>"
             "book <flightNum> <place> <userName>"
@@ -23,63 +30,73 @@ unique_ptr<ICommand> ConsoleProcessor::parseParameters(const shared_ptr<BookingC
     getline(cin, command);
 
     vector<string> args = validate_command(command);
-    
-    if(args.empty())
+
+    if (args.front() == "exit")
+    {
+        return nullptr;
+    } if(args.empty())
     {
         parseParameters(bookTicket, file_name);
     }
-    
-    try
+
+    if(args.front() == "check")
     {
-        if(args.front() == "check")
+        if(args.size() != 3)
         {
-            if(args.size() != 3)
-            {
-                cout << "Not enough arguments" << endl;
-            }
-            return make_unique<RequestFlightInfo>(args[1], args[2], file_name);
-        } if (args.front() == "book")
-        {
-            if(args.size() != 5)
-            {
-                cout << "Not enough arguments" << endl;
-            }
-            return make_unique<BookTicket>(bookTicket, args[1], args[2], args[3], args[4]);
-        } if (args.front() == "view")
-        {
-            if (args.size() == 2)
-            {
-                return make_unique<RequestTicketInfo>(bookTicket, 0, args[1]);
-            } if (args.size() == 3)
-            {
-                if (args[1] == "username")
-                {
-                    return make_unique<RequestTicketInfo>(bookTicket, 1, args[2]);
-                } if (args[1] == "flight")
-                {
-                    return make_unique<RequestTicketInfo>(bookTicket, 1, args[2]);
-                }
-                cout << "Not enough arguments" << endl;
-                return nullptr;
-            }
-        } if (args.front() == "return")
-        {
-            if(args.size() != 2)
-            {
-                cout << "Not enough arguments" << endl;
-            }
-            return make_unique<ReturnTicket>(bookTicket, args[1]);
+            cout << "Wrong number of arguments" << endl;
+            parseParameters(bookTicket, file_name);
         }
-        cout << "Invalid command" << endl;
-        return nullptr;
-    }
-    catch (const exception& e)
+        return make_unique<RequestFlightInfo>(args[1], args[2], file_name);
+    } if (args.front() == "book")
     {
-        cout << e.what() << endl;
-        return nullptr;
+        if(args.size() != 5)
+        {
+            cout << "Wrong number of arguments" << endl;
+            parseParameters(bookTicket, file_name);
+        }
+        return make_unique<BookTicket>(bookTicket, args[1], args[2], args[3], args[4]);
+    } if (args.front() == "view")
+    {
+        if (args.size() == 2)
+        {
+            string id = args[1];
+            while (true)
+            {
+                try
+                {
+                    stoi(id);
+                    break;
+                } catch (invalid_argument& e) {
+                    cout << "Enter an integer parameter that represents ID" << endl;
+                    getline(cin, id);
+                }
+            }
+            return make_unique<RequestTicketInfo>(bookTicket, 0, args[1]);
+        } if (args.size() == 3)
+        {
+            if (args[1] == "username")
+            {
+                return make_unique<RequestTicketInfo>(bookTicket, 1, args[2]);
+            } if (args[1] == "flight")
+            {
+                return make_unique<RequestTicketInfo>(bookTicket, 1, args[2]);
+            }
+            cout << "Invalid command" << endl;
+        } else
+        {
+            cout << "Wrong number of arguments" << endl;
+            parseParameters(bookTicket, file_name);
+        }
+    } if (args.front() == "return")
+    {
+        if(args.size() != 2)
+        {
+            cout << "Wrong number of arguments" << endl;
+            parseParameters(bookTicket, file_name);
+        }
+        return make_unique<ReturnTicket>(bookTicket, args[1]);
     }
-    
-    
+    return nullptr;
 }
 
 map<string, string> ConsoleProcessor::authenticateUser()
@@ -115,7 +132,7 @@ void ConsoleProcessor::printFileInfo(map<string,string> file_info)
 vector<string> ConsoleProcessor::validate_command(const string& command)
 {
     vector<string> args;
-    vector<string> options = {"check", "book", "return", "view"};
+    vector<string> options = {"check", "book", "return", "view", "exit"};;
     stringstream ss(command);
     
     string word;

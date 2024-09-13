@@ -16,5 +16,6 @@ public:
     
     ~ConsoleProcessor() = default;
 private:
+    static int resursive_counter_;
     static vector<string> validate_command(const string& command);
 };
