@@ -1,7 +1,7 @@
 #include "../include/PurchaseProcessor.h"
 
 PurchaseProcessor::PurchaseProcessor(shared_ptr<User> user, string passenger, shared_ptr<Airplane> airplane, string seat)
-    : user_(std::move(user)),
+    : user_(user),
         passenger_(std::move(passenger)),
         airplane_(airplane),
         seat_id_(std::move(seat))
@@ -19,11 +19,6 @@ Ticket PurchaseProcessor::purchase(const int& purchase_id) const
     }
 
     map<string, string> flight_info = airplane_->getFlightInfo();
-
-    if (user_->getAge() < 16)
-    {
-        reservedPrice *= 0.5;
-    }
 
     user_->writeOffFunds(reservedPrice);
 

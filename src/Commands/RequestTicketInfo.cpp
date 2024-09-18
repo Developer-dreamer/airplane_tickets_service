@@ -11,14 +11,14 @@ void RequestTicketInfo::execute()
     if (view_type)
     {
         result_ = receiver_->getUser()->getTickets(parameter);
-    } if (!view_type)
-    {
-        result_.push_back(receiver_->viewTicket(stoi(parameter)));
     } else
     {
-        cout << "Something went wrong" << endl;
-        
-    }
+        result_.push_back(receiver_->viewTicket(stoi(parameter)));
+    } //else
+    // {
+    //     cout << "Something went wrong" << endl;
+    //     
+    // }
     
     
 }

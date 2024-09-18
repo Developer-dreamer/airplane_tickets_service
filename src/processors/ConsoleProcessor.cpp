@@ -89,7 +89,6 @@ unique_ptr<ICommand> ConsoleProcessor::parseParameters(const shared_ptr<BookingC
                 recursive_counter_ = 0;
                 return make_unique<RequestTicketInfo>(bookTicket, 1, args[2]);
             }
-            cout << "Invalid command" << endl;
         } else
         {
             cout << "Wrong number of arguments" << endl;
@@ -141,6 +140,7 @@ string ConsoleProcessor::validate_int(string& param)
             getline(cin, param);
         }
     }
+    return param;
 }
 
 void ConsoleProcessor::printInfo(const map<string,string>& file_info)
@@ -184,11 +184,12 @@ vector<string> ConsoleProcessor::validate_command(const string& command)
         if(arg_count == 0 && find(options.begin(), options.end(), word) == options.end())
         {
             cout << "Invalid command" << endl;
-            return {};
+        } else
+        {
+            args.push_back(word);
+            word.clear();
+            arg_count++;
         }
-        args.push_back(word);
-        word.clear();
-        arg_count++;
     }
     return args;
 }

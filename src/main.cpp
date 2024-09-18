@@ -25,8 +25,6 @@ int main() {
         book_ticket->addViewedAirplane(airplane);
     }
     
-    // initializing Main Processors:
-    
 
     // initialize User session
     const User user(ConsoleProcessor::authenticateUser());
