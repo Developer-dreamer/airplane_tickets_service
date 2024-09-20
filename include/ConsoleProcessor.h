@@ -20,4 +20,5 @@ private:
     static int recursive_counter_;
     static vector<string> validate_command(const string& command);
     static string validate_int(string& param);
+    static bool getline_wrapper(istream& input, string& line);
 };

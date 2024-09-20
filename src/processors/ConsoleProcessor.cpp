@@ -27,7 +27,7 @@ unique_ptr<ICommand> ConsoleProcessor::parseParameters(const shared_ptr<BookingC
     
     cout << "Please enter what action you want to perform: ";
     string command;
-    getline(cin, command);
+    getline_wrapper(cin, command);
 
     vector<string> args = validate_command(command);
 
@@ -140,7 +140,10 @@ string ConsoleProcessor::validate_int(string& param)
             getline(cin, param);
         }
     }
-    return param;
+}
+
+bool ConsoleProcessor::getline_wrapper(istream& input, string& line) { 
+    return static_cast<bool>(getline(input, line)); 
 }
 
 void ConsoleProcessor::printInfo(const map<string,string>& file_info)
