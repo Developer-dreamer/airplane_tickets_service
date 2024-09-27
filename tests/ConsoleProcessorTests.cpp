@@ -23,12 +23,25 @@ TEST(ConsoleProcessor, HandleCheckCommand)
     shared_ptr<BookingContext> bookTicket = make_shared<BookingContext>();
 
     MockConsoleProcessor mockConsoleProcessor;
-    std::istringstream input("Serafym\n18\n500\ncheck 15.10.2022 QW12\n"); 
-    EXPECT_CALL(mockConsoleProcessor, getline_wrapper(input, _))
-        .WillRepeatedly(Return(true));
     
-    unique_ptr<ICommand> command = ConsoleProcessor::parseParameters(bookTicket);
+    // EXPECT_CALL(mockConsoleProcessor, getline_wrapper(_, _))
+    //     .Times(3)
+    //     .WillOnce(DoAll(SetArgReferee<1>("Serafym"), Return(true)))
+    //     .WillOnce(DoAll(SetArgReferee<1>("18"), Return(true)))
+    //     .WillOnce(DoAll(SetArgReferee<1>("500"), Return(true)));
+
+    // EXPECT_CALL(mockConsoleProcessor, getline_wrapper(_, _))
+    //     .WillOnce(DoAll(SetArgReferee<1>("check 15.10.2022 QW12"), Return(true)));
+
+    bool isSuccess;
+    unique_ptr<ICommand> command = MockConsoleProcessor::parseParameters(bookTicket);
+    
+    // if ()
+    // {
+    //     isSuccess = true;
+    // }
 
     unique_ptr<RequestFlightInfo> expectedCommand = make_unique<RequestFlightInfo>(bookTicket, "15.10.2022", "QW12");
     ASSERT_EQ(command, expectedCommand);
+
 }

@@ -73,7 +73,7 @@ unique_ptr<ICommand> ConsoleProcessor::parseParameters(const shared_ptr<BookingC
                     break;
                 } catch (invalid_argument& e) {
                     cout << "Enter an integer parameter that represents ID" << endl;
-                    getline(cin, id);
+                    getline_wrapper(cin, id);
                 }
             }
             recursive_counter_ = 0;
@@ -114,14 +114,14 @@ map<string, string> ConsoleProcessor::authenticateUser()
     map <string, string> user;
 
     cout << "Please enter your username: ";
-    getline(cin, user["name"]);
+    getline_wrapper(cin, user["name"]);
 
     cout << "Please enter your age: ";
-    getline(cin, user["age"]);
+    getline_wrapper(cin, user["age"]);
     user["age"] = validate_int(user["age"]);
     
     cout << "Please enter your balance (in dollars): ";
-    getline(cin, user["balance"]);
+    getline_wrapper(cin, user["balance"]);
     user["balance"] = validate_int(user["balance"]);
     
     return user;
@@ -137,7 +137,7 @@ string ConsoleProcessor::validate_int(string& param)
             return param;
         } catch (invalid_argument& e) {
             cout << "Enter an integer parameter" << endl;
-            getline(cin, param);
+            getline_wrapper(cin, param);
         }
     }
 }

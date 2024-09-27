@@ -19,7 +19,7 @@ include_directories("include")
 
 add_executable(airplane_tickets_service
         src/entities/User.cpp
-        src/main.cpp
+#        src/main.cpp
         include/User.h
         include/Ticket.h
         src/entities/Ticket.cpp
